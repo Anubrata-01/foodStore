@@ -1,0 +1,30 @@
+import { useAtom } from 'jotai';
+import { useEffect } from 'react';
+import { moodDataAtom } from '../storeAtom/Atom';
+
+const useMoodItemsData = (userId) => {
+  const [, setMoodData] = useAtom(moodDataAtom);
+
+  useEffect(() => {
+    const fetchMoodDataItems = async () => {
+      try {
+        const Mood_Item_Url = `https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.469788246717883&lng=88.3891574665904&collection=${userId}&filters=&type=rcv2&offset=0&page_type=null`;
+        const response = await fetch(Mood_Item_Url);
+        if (!response.ok) {
+          throw new Error("Failed to fetch mood data");
+        }
+        const data = await response.json();
+        setMoodData(data);
+        // console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    if (userId) {
+      fetchMoodDataItems();
+    }
+  }, [userId, setMoodData]);
+};
+
+export default useMoodItemsData;
