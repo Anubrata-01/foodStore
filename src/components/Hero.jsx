@@ -21,12 +21,12 @@ const Hero = () => {
       setTopRestaurantDetailsData([])
 
     }
-  }, [location.pathname, setMoodData]);
+  }, []);
   useEffect(() => {
     if (!fetchTrigger) {
       setFetchTrigger(true);
     }
-  }, [fetchTrigger]);
+  }, []);
   resdata && console.log(resdata);
 
   return (

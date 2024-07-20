@@ -1,10 +1,8 @@
-/* eslint-disable no-unsafe-optional-chaining */
-
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import ShimmerEffect from "../../utilities/ShimmerEffect";
 import RestaurantCardComponent from "../../components/TopRestaurants/RestaurantCardComponent";
-import { NavLink } from "react-router-dom";
-import { ShimmerCol } from "../../utilities/shimmerr";
+import { NavLink, useLocation } from "react-router-dom";
+import ShimmerRestaurantCard from "../../utilities/ShimmerRestaurantCard";
 
 const ItemsDetailsContainer = ({ Mooddata }) => {
   const { title, description } = useMemo(() => {
@@ -24,12 +22,12 @@ const ItemsDetailsContainer = ({ Mooddata }) => {
     );
   }, [Mooddata]);
 
-  if (!title) return <ShimmerEffect />; 
+  if (!title) return <ShimmerRestaurantCard />;
   console.log(moodRescards);
 
   return (
     <section>
-      <section className=" ml-[16%] mt-[2%] md:ml-[3%]">
+      <section className="ml-[16%] mt-[2%] md:ml-[3%]">
         <div>
           <p className="text-2xl font-bold">{title}</p>
           <p className="text-lg text-gray-700">{description}</p>
@@ -51,11 +49,9 @@ const ItemsDetailsContainer = ({ Mooddata }) => {
           } = card?.card?.card?.info;
 
           return (
-            
-            
+            <NavLink to={`/mod-restaurant/${card?.card?.card?.info?.id}`} key={index}>
               <RestaurantCardComponent
                 name={name}
-                key={index}
                 locality={locality}
                 cuisines={cuisines}
                 costForTwo={costForTwo}
@@ -66,8 +62,7 @@ const ItemsDetailsContainer = ({ Mooddata }) => {
                 avgRating={avgRating}
                 aggregatedDiscountInfoV3={aggregatedDiscountInfoV3}
               />
-           
-          
+            </NavLink>
           );
         })}
       </section>
@@ -76,3 +71,4 @@ const ItemsDetailsContainer = ({ Mooddata }) => {
 };
 
 export default ItemsDetailsContainer;
+

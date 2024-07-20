@@ -32,6 +32,12 @@ const router = createBrowserRouter([
         element:<Suspense fallback=<ShimmerEffect/>>
           <FoodDeliveryDetails/>
         </Suspense>
+      },
+      {
+        path:"/mod-restaurant/:userId",
+        element:<Suspense fallback=<ShimmerEffect/>>
+          <FoodDeliveryDetails/>
+        </Suspense>
       }
     ]
   },

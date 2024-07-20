@@ -1,7 +1,6 @@
 /* eslint-disable no-unsafe-optional-chaining */
 import React from "react";
-import ShimmerEffect from "../utilities/ShimmerEffect";
-
+import ShimmerEffect from "../../utilities/ShimmerEffect";
 const RestaurantCardInterface = ({ RestaurantDetails }) => {
   const {
     name,
@@ -15,7 +14,7 @@ const RestaurantCardInterface = ({ RestaurantDetails }) => {
   } = RestaurantDetails?.card?.card?.info || {};
   if(!name) return <ShimmerEffect/>;
   return (
-    <div className="max-w-md mx-auto mt-16 md:mt-16 bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl outline outline-[20px] outline-zinc-200">
+    <div className="max-w-[90%] mx-auto mt-16 md:mt-16 bg-white rounded-xl shadow-md overflow-hidden md:max-w-xl outline outline-[20px] outline-zinc-200">
       <div className="md:flex">
         <div className="p-6">
         <div className="relative  top-0 uppercase tracking-wide text-2xl text-black font-bold">

@@ -37,7 +37,8 @@ const RestaurantCardComponent = ({
   return (
     <section className="bg-white rounded-lg shadow-md overflow-hidden m-2 w-64 h-[30]">
       <section className="relative">
-        <GetCompressedImg imageUrl={Swigy_url + imageUrl} />
+        {/* <GetCompressedImg imageUrl={Swigy_url + imageUrl} /> */}
+        <img src={Swigy_url + imageUrl} alt="img" className=" w-full h-40 object-cover" />
         <div className="absolute bottom-0 left-0 bg-black bg-opacity-50 text-white p-1 text-sm">
           {aggregatedDiscountInfoV3 ? (
             <span className=" text-white font-bold">
