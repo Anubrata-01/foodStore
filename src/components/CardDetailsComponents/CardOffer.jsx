@@ -1,30 +1,69 @@
+// import React from "react";
+// import { Offer_img } from "../../constant/data";
+
+// const CardOffer = ({ RestaurantDetails }) => {
+//   const descriptionList = RestaurantDetails?.card?.card?.info?.aggregatedDiscountInfo?.descriptionList;
+
+//   if (!descriptionList || descriptionList.length === 0) {
+//     return null;
+//   }
+
+//   return (
+//     <section className="mt-10 flex flex-col gap-6 md:flex-row md:justify-center">
+//       {descriptionList.map((offer, index) => (
+//         <div
+//           key={index}
+//           className="flex gap-2 border-2 w-full md:w-[40%] p-2.5 rounded-lg text-black font-bold"
+//         >
+//           <img src={Offer_img} alt="Offer" className="w-[25px] md:w-[35px]" />
+//           <div className="flex flex-col text-sm">
+//             {offer.meta.split(" | ").map((part, subIndex) => (
+//               <span key={subIndex}>{part}</span>
+//             ))}
+//           </div>
+//         </div>
+//       ))}
+//     </section>
+//   );
+// };
+
+// export default React.memo(CardOffer);
+
+
 import React from "react";
 import { Offer_img } from "../../constant/data";
 
 const CardOffer = ({ RestaurantDetails }) => {
-  const { descriptionList } =
-    RestaurantDetails?.card?.card?.info?.aggregatedDiscountInfo || {};
+  const descriptionList = RestaurantDetails?.card?.card?.info?.aggregatedDiscountInfo?.descriptionList;
+
+  if (!descriptionList || descriptionList.length === 0) {
+    return null;
+  }
 
   return (
-    <section className=" mt-10 flex flex-col gap-6  md:flex-row md:justify-center">
-      {descriptionList &&
-        descriptionList.map((offer, index) => (
+    <section className="mt-6 sm:mt-8 md:mt-10">
+      <h2 className="text-sm sm:text-lg md:text-xl font-bold mb-4 sm:mb-6 mt-6 md:ml-[1%] text-center text-neutral-500">Deals For You</h2>
+      <div className="flex flex-wrap justify-center gap-4 sm:gap-6 -mt-3">
+        {descriptionList.map((offer, index) => (
           <div
             key={index}
-            className=" flex gap-2  border-2 w-[310px] p-2.5 rounded-lg text-black font-bold"
+            className="flex items-center gap-2 border-2 w-full sm:w-[calc(50%-12px)] md:w-[calc(33%-16px)] lg:w-[calc(42%-18px)] p-2 sm:p-2.5 rounded-lg text-black font-semibold sm:font-bold"
           >
-            <img src={Offer_img} alt="" className=" w-[30px]  md:w-[45px]" />
-            <div>
-              {offer?.meta.split(" | ").map((part, subIndex) => (
-                <div key={subIndex} className="flex flex-col">
-                  {part}
-                </div>
+            <img 
+              src={Offer_img} 
+              alt="Offer" 
+              className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 flex-shrink-0"
+            />
+            <div className="flex flex-col text-xs sm:text-sm md:text-base">
+              {offer?.meta?.split(" | ").map((part, subIndex) => (
+                <span key={subIndex}>{part}</span>
               ))}
             </div>
           </div>
         ))}
+      </div>
     </section>
   );
 };
 
-export default CardOffer;
+export default React.memo(CardOffer);
