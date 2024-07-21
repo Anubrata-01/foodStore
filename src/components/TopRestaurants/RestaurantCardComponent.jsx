@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { Star_svg, Swigy_url } from "../../constant/data";
-import GetCompressedImg from "../../storeAtom/GetCompressImage";
+// import GetCompressedImg from "../../storeAtom/GetCompressImage";
 import React from "react";
 const RestaurantCardComponent = ({
   name,

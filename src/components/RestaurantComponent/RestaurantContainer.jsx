@@ -52,7 +52,7 @@ const RestaurantContainer = ({ resdata, error, isLoading }) => {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <section className="mt-5 ml-1 md:ml-5">
+    <section className="mt-6  md:ml-8">
       <section className="ml-[7%] md:ml-[3%] flex justify-between">
         <h1 className="text-lg md:text-2xl text-pretty font-semibold">
           {moodDataTitle}
@@ -69,7 +69,7 @@ const RestaurantContainer = ({ resdata, error, isLoading }) => {
 
       <section
         ref={scrollRef}
-        className="w-[100%] md:w-[95%] p-1 md:p-2 flex gap-2 overflow-x-scroll ml-4 mt-2 scroll-smooth no-scrollbar"
+        className="w-[100%] md:w-[95%] p-1 md:p-2 flex gap-2 overflow-x-scroll ml-4 md:ml-8 mt-2 scroll-smooth no-scrollbar"
       >
         {moodData.map((item, index) => {
           let entityId = item?.action?.link;

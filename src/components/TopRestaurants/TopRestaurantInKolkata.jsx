@@ -45,7 +45,7 @@ const TopRestaurantInKolkata = ({ resdata,error,isLoading }) => {
   };
   if(isLoading || !restaurantChainKolkataTitle) return <ShimmerEffect/>
   return (
-    <section className="mt-5 ml-1 md:ml-5">
+    <section className="mt-5 ml-1 md:ml-8">
       <section className="ml-[7%] md:ml-[3%] flex justify-between">
         <h1 className="text-lg md:text-2xl text-pretty font-semibold">
           {restaurantChainKolkataTitle}
@@ -62,7 +62,7 @@ const TopRestaurantInKolkata = ({ resdata,error,isLoading }) => {
 
       <section
         ref={scrollRef}
-        className="w-[100%] md:w-[95%] p-1 md:p-1 flex gap-1 overflow-x-scroll ml-4 mt-2 scroll-smooth no-scrollbar"
+        className="w-[100%] md:w-[95%] p-1 md:p-1 flex gap-1 overflow-x-scroll ml-4 md:ml-7 mt-2 scroll-smooth no-scrollbar"
       >
         {restaurantChainKolkataCards?.map((item, index) => {
           let entityId = item?.cta?.link;

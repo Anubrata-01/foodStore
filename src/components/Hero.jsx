@@ -30,7 +30,7 @@ const Hero = () => {
   resdata && console.log(resdata);
 
   return (
-    <section className="bg-gray-200 p-3">
+    <section className="bg-gray-200 p-3 ">
       <Suspense fallback={<div>Loadi</div>}>
         <RestaurantContainer
           resdata={resdata}

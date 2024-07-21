@@ -23,7 +23,7 @@ const MoodItemContainer = () => {
   console.log(moodData);
 
   return (
-    <div>
+    <div className="">
       <ItemsDetailsContainer Mooddata={moodData} />
     </div>
   );

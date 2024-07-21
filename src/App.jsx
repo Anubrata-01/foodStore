@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-// import { Outlet } from 'react-router-dom';
+
 import React from "react";
 import { Outlet } from "react-router-dom";
 import "./App.css";
@@ -9,7 +8,7 @@ const Navbar = lazy(() => import("./components/Navbar"));
 
 function App() {
   return (
-    <div>
+    <div className="">
       <Suspense>
         <Navbar />
       </Suspense>

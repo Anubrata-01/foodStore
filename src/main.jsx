@@ -23,13 +23,13 @@ const router = createBrowserRouter([
       },
       {
         path:":userId",
-        element:<Suspense fallback=<ShimmerEffect/>>
+        element:<Suspense>
           <MoodItemContainer/>
         </Suspense>
       },
       {
         path:"/top-res/:userId",
-        element:<Suspense fallback=<ShimmerEffect/>>
+        element:<Suspense>
           <FoodDeliveryDetails/>
         </Suspense>
       },
