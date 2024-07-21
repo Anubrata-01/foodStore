@@ -1,111 +1,69 @@
-/* eslint-disable no-unused-vars */
-
-import React from "react";
+import React, { useState, useEffect } from "react";
+// import { NavLink } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-const Navbar = () => {
-  const [displayNavItems, setDisplayNavItems] = useState(false);
+import NavItem from "./NavItem";
 
-  const handleMenu = () => {
-    setDisplayNavItems((prev) => !prev);
-  };
+const NAV_ITEMS = [
+  { to: "/home", label: "Home" },
+  { to: "/about", label: "About" },
+  { to: "/project", label: "Project" },
+  { to: "/contact", label: "Contact" },
+];
+
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  const toggleMenu = () => setIsOpen(prev => !prev);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <nav className="w-full p-4 navbar-shadow bg-white">
-      <div className="flex justify-between items-center w-[95%] ml-4 relative">
-        <div className="ml-[1%] md:ml-[5%]">
-          <p className="p-2 text-lg text-red-700 uppercase font-serif md:text-2xl">
-            foodStore
-          </p>
-        </div>
-
-        {/* Hidden on large screens, visible on medium and smaller screens */}
-        <button
-          className="lg:hidden bg-violet-600 text-white rounded-md mr-[5%] p-2"
-          onClick={handleMenu}
-          aria-label={displayNavItems ? "Close menu" : "Open menu"}
-        >
-          {!displayNavItems ? <MenuIcon /> : <CloseIcon />}
-        </button>
-
-        {/* Nav items for large screens */}
-        <div className="hidden lg:flex gap-4 md:mr-[5%]">
-          <NavLink
-            to="/home"
-            className="p-2 text-red-700 uppercase cursor-pointer"
-            aria-label="Home"
-          >
-            Home
-          </NavLink>
-          <NavLink
-            to="/about"
-            className="p-2 text-red-700 uppercase"
-            aria-label="About"
-          >
-            About
-          </NavLink>
-          <NavLink
-            to="/project"
-            className="p-2 text-red-700 uppercase"
-            aria-label="Project"
-          >
-            Project
-          </NavLink>
-          <NavLink
-            to="/contact"
-            className="p-2 text-red-700 uppercase"
-            aria-label="Contact"
-          >
-            Contact
-          </NavLink>
-        </div>
-
-        {/* Nav items for medium and smaller screens */}
-        {displayNavItems && (
-          <div
-            className="lg:hidden w-[90%] md:w-[70%] mt-72 p-4 flex flex-col absolute right-4 gap-3 bg-emerald-800"
-            role="menu"
-          >
-            <NavLink
-              to="/home"
-              className="navmenu p-2 text-yellow-300 uppercase"
-              aria-label="Home"
-              role="menuitem"
-              onClick={handleMenu}
-            >
-              Home
-            </NavLink>
-            <NavLink
-              to="/about"
-              className="navmenu p-2 text-yellow-300 uppercase"
-              aria-label="About"
-              role="menuitem"
-              onClick={handleMenu}
-            >
-              About
-            </NavLink>
-            <NavLink
-              to="/project"
-              className="navmenu p-2 text-yellow-300 uppercase"
-              aria-label="Project"
-              role="menuitem"
-              onClick={handleMenu}
-            >
-              Project
-            </NavLink>
-            <NavLink
-              to="/contact"
-              className="navmenu p-2 text-yellow-300 uppercase"
-              aria-label="Contact"
-              role="menuitem"
-              onClick={handleMenu}
-            >
-              Contact
-            </NavLink>
+    <nav className={`
+      sticky top-0 z-50 transition-all duration-300
+      ${isScrolled ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'}
+    `}>
+      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          <div className="flex-shrink-0 ml-5 md:ml-0">
+            <span className="text-2xl font-bold text-red-600">FoodStore</span>
           </div>
-        )}
+          <div className="hidden md:block">
+            <div className="ml-5 flex items-baseline space-x-4">
+              {NAV_ITEMS.map(item => (
+                <NavItem key={item.to} {...item} />
+              ))}
+            </div>
+          </div>
+          <div className="md:hidden">
+            <button
+              onClick={toggleMenu}
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-red-600 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-red-500"
+            >
+              {isOpen ? <CloseIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile menu */}
+      <div className={`
+        md:hidden transition-all duration-300 ease-in-out
+        ${isOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'}
+        overflow-hidden
+      `}>
+        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white shadow-lg">
+          {NAV_ITEMS.map(item => (
+            <NavItem key={item.to} {...item} onClick={toggleMenu} isMobile />
+          ))}
+        </div>
       </div>
     </nav>
   );
