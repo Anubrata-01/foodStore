@@ -3,6 +3,7 @@ import ShimmerEffect from "../../utilities/ShimmerEffect";
 import RestaurantCardComponent from "../../components/TopRestaurants/RestaurantCardComponent";
 import { NavLink, useLocation } from "react-router-dom";
 import ShimmerRestaurantCard from "../../utilities/ShimmerRestaurantCard";
+import ShimmerCard from "../../utilities/ShimmerCard";
 
 const ItemsDetailsContainer = ({ Mooddata }) => {
   const { title, description } = useMemo(() => {

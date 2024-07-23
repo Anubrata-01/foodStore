@@ -1,4 +1,3 @@
-/* eslint-disable no-unsafe-optional-chaining */
 import React from "react";
 import ShimmerEffect from "../../utilities/ShimmerEffect";
 const RestaurantCardInterface = ({ RestaurantDetails }) => {
@@ -44,7 +43,7 @@ const RestaurantCardInterface = ({ RestaurantDetails }) => {
             <div className="mt-1 text-black font-bold">{sla?.slaString}</div>
             <div className="mt-2 flex items-center text-gray-500">
               <span>{sla?.lastMileTravelString}</span>
-              <span className="ml-2"> | {feeDetails?.message.split(" | ")[1]}</span>
+              {/* <span className="ml-2"> | {feeDetails?.message.split(" | ")[1] || ""}</span> */}
             </div>
           </div>
         </div>

@@ -1,63 +1,30 @@
-import React from 'react';
-import styled, { keyframes } from 'styled-components';
-import LineBar from './LineBar';
+import React from "react";
+import ShimmerCard from "./ShimmerCard";
 
-const ShimmerRestaurantCard = () => {
+const ShimmerItemDetailsContainer = () => {
   return (
-    <ShimmerContainer>
-      <ShimmerTitle />
-      <ShimmerSubContainer>
-        <ShimmerCardContainer>
-          {Array.from({ length: 12 }).map((_, index) => (
-            <ShimmerRestaurantsCard key={index} />
+    <section className=" ml-[3%] md:ml-[2%]">
+      <section className=" flex  mt-[2%] ">
+        <div>
+          <div className="w-48 h-8 bg-gray-300 rounded mb-2 animate-pulse"></div>
+          <div className="w-72 h-6 bg-gray-300 rounded animate-pulse"></div>
+        </div>
+      </section>
+      <section className="flex flex-wrap  mt-[2%]">
+        {Array(12)
+          .fill("")
+          .map((_, index) => (
+            <div key={index} className="m-2">
+              <ShimmerCard />
+            </div>
           ))}
-        </ShimmerCardContainer>
-      </ShimmerSubContainer>
-      <LineBar />
-    </ShimmerContainer>
+      </section>
+    </section>
   );
 };
 
-const shimmer = keyframes`
-  0% {
-    background-position: -468px 0;
-  }
-  100% {
-    background-position: 468px 0;
-  }
-`;
+export default ShimmerItemDetailsContainer;
 
-// Styled components for shimmer skeleton
-const ShimmerContainer = styled.div`
-  margin-left: 5%;
-  margin-top: 2%;
-`;
-
-const ShimmerTitle = styled.div`
-  width: 300px;
-  height: 28px;
-  background: linear-gradient(to right, #f0f0f0 8%, #e0e0e0 18%, #f0f0f0 33%);
-  background-size: 800px 104px;
-  animation: ${shimmer} 1.5s infinite linear;
-`;
-
-const ShimmerSubContainer = styled.div``;
-
-const ShimmerCardContainer = styled.div`
-  display: grid;
-  grid-template-columns: auto auto auto auto;
-`;
-
-const ShimmerRestaurantsCard = styled.div`
-  width: 250px;
-  height: 260px;
-  margin: 10px;
-  background: linear-gradient(to right, #f0f0f0 8%, #e0e0e0 18%, #f0f0f0 33%);
-  background-size: 800px 104px;
-  animation: ${shimmer} 1.5s infinite linear;
-`;
-
-export default ShimmerRestaurantCard;
 
 
 

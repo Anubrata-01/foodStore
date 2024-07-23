@@ -16,6 +16,7 @@ const FoodDeliveryInterface = () => {
   useTopRestaurantDetails(userId);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     setUserId(userId);
     return () => setTopRestaurantDetailsData(null);
   }, [userId, setUserId, setTopRestaurantDetailsData]);
@@ -24,13 +25,13 @@ const FoodDeliveryInterface = () => {
     () => topRestaurantDetailsData?.data?.cards[2],
     [topRestaurantDetailsData]
   );
-
+console.log(RestaurantDetails);
   const filterAccordianCards = useMemo(() => 
     topRestaurantDetailsData?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards
       ?.filter(card => card?.card?.card?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"),
     [topRestaurantDetailsData]
   );
-
+console.log(filterAccordianCards);
   const renderAccordionItem = useCallback(({ card }, index) => (
     <AccordianOfFoods key={card?.card?.title || index} details={card?.card} />
   ), []);

@@ -23,3 +23,5 @@
     },
     // Add more items as needed
   ];
+
+  export const OnlineFoodDeliverTitle="Restaurants with online food delivery in Kolkata"

@@ -1,52 +1,67 @@
-import React, { lazy, Suspense, useEffect, useState } from "react";
-import RestaurantContainer from "./RestaurantComponent/RestaurantContainer";
-import useRestaurantData from "../hooks/useRestaurantData";
+import React, { lazy, Suspense, useEffect, useState, useCallback, useMemo } from "react";
 import { useAtom } from "jotai";
 import { useLocation } from "react-router-dom";
 import { moodDataAtom, topRestaurantDetailsDataAtom } from "../storeAtom/Atom";
-import ShimmerEffect from "../utilities/ShimmerEffect";
-const TopRestaurantChainInKolkata = lazy(() =>
-  import("./TopRestaurants/TopRestaurantInKolkata")
-);
+import useRestaurantData from "../hooks/useRestaurantData";
+const RestaurantContainer = lazy(() => import("./RestaurantComponent/RestaurantContainer"));
+const TopRestaurantChainInKolkata = lazy(() => import("./TopRestaurants/TopRestaurantInKolkata"));
+const LazyOnlineFoodDeliverComponents = lazy(() => import("./OnlineFoodComponents/OnlineFoodDeliveryComponents"));
+
 const Hero = () => {
   const [fetchTrigger, setFetchTrigger] = useState(false);
   const { resdata, error, isLoading } = useRestaurantData(fetchTrigger);
   const [, setMoodData] = useAtom(moodDataAtom);
-  const [,setTopRestaurantDetailsData] = useAtom(topRestaurantDetailsDataAtom);
-
+  const [, setTopRestaurantDetailsData] = useAtom(topRestaurantDetailsDataAtom);
   const location = useLocation();
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [extraRestsData, setExtraRestsData] = useState([]);
+  const loadMoreData = useCallback(() => {
+    if (!isLoadingMore) {
+      setIsLoadingMore(true);
+      setTimeout(() => {
+        setIsLoadingMore(false);
+      }, 2000);
+    }
+  }, [isLoadingMore]);
+
   useEffect(() => {
+    const handleScroll = () => {
+      const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+      if (scrollHeight - scrollTop <= clientHeight + 400 ) {
+        loadMoreData();
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [loadMoreData, isLoadingMore]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
     if (location.pathname === "/") {
       setMoodData([]);
-      setTopRestaurantDetailsData([])
-
+      setTopRestaurantDetailsData([]);
     }
-  }, []);
-  useEffect(() => {
     if (!fetchTrigger) {
       setFetchTrigger(true);
     }
-  }, []);
-  resdata && console.log(resdata);
+  }, [location.pathname, fetchTrigger, setMoodData, setTopRestaurantDetailsData]);
+
+  const sharedProps = { resdata, error, isLoading };
 
   return (
-    <section className="bg-gray-200 p-3 ">
-      <Suspense fallback={<div>Loadi</div>}>
-        <RestaurantContainer
-          resdata={resdata}
-          error={error}
-          isLoading={isLoading}
-        />
-      </Suspense>
-      <Suspense fallback={<ShimmerEffect />}>
-        <TopRestaurantChainInKolkata
-          resdata={resdata}
-          error={error}
-          isLoading={isLoading}
+    <section className="bg-gray-200 p-3">
+      <Suspense fallback={<div>Loading...</div>}>
+        <RestaurantContainer {...sharedProps} />
+        <TopRestaurantChainInKolkata {...sharedProps} />
+        <LazyOnlineFoodDeliverComponents 
+          {...sharedProps}
+          extraRestsData={extraRestsData}
+          isLoadingMore={isLoadingMore}
         />
       </Suspense>
     </section>
   );
 };
 
-export default Hero;
+export default React.memo(Hero);
