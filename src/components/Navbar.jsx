@@ -7,7 +7,7 @@ import NavItem from "./NavItem";
 const NAV_ITEMS = [
   { to: "/home", label: "Home" },
   { to: "/about", label: "About" },
-  { to: "/project", label: "Project" },
+  { to: "/cart", label: "Cart" },
   { to: "/contact", label: "Contact" },
 ];
 
