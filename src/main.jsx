@@ -8,10 +8,11 @@ import About from "./pages/About.jsx";
 import Navbar from "./components/Navbar.jsx";
 import Hero from "./components/Hero.jsx";
 import ShimmerEffect from "./utilities/ShimmerEffect.jsx";
+import Cart from "./pages/CartSection/Cart.jsx";
 const queryClient=new QueryClient();
 const MoodItemContainer=lazy(()=> import ("./pages/MoodItemDetails/MoodItemContainer"));
 const FoodDeliveryDetails=lazy(()=> import ("./pages/FoodDetails/FoodDeliveryInterface.jsx"));
-
+const CartComponent=lazy(()=> import ("./pages/CartSection/Cart.jsx"));
 const router = createBrowserRouter([
   {
     path: "/",
@@ -44,8 +45,16 @@ const router = createBrowserRouter([
         element:<Suspense fallback=<ShimmerEffect/>>
           <FoodDeliveryDetails/>
         </Suspense>
+      },
+      {
+        path:"/cart",
+        element:<Suspense fallback=<ShimmerEffect/>>
+         
+          <CartComponent/>
+        </Suspense>
       }
-    ]
+     
+    ],
   },
   {
     path: "about",
