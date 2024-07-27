@@ -37,7 +37,7 @@ console.log(filterAccordianCards);
   ), []);
 
   return (
-    <section className="w-[90%] md:w-[50%] relative left-[5%] md:left-[20%] border-2">
+    <section className="w-[90%] md:w-[50%] relative left-[5%] md:left-[20%] border-2 bg-stone-100 p-4">
       <RestaurantCardInterface RestaurantDetails={RestaurantDetails} />
       <CardOffer RestaurantDetails={RestaurantDetails} />
       <SearchForDishes />
