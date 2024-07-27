@@ -55,7 +55,7 @@ const FoodItem = ({ item, }) => {
   }, [setCartItems, id, name, itemPrice, category]);
 console.log(item);
   return (
-    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 p-4 border rounded-lg">
+    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 p-4 border border-sky-300 rounded-lg">
       <div className="flex-1 mb-4 sm:mb-0">
         <h3 className="font-semibold">{name}</h3>
         <p>₹{itemPrice / 100}</p>
