@@ -1,13 +1,15 @@
-
-import React, { useMemo } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import RestaurantCardComponent from "../TopRestaurants/RestaurantCardComponent";
 import { NavLink } from "react-router-dom";
 import { OnlineFoodDeliverTitle } from "../../constant/data";
 import { useAtom } from "jotai";
 import { userIdAtom } from "../../storeAtom/Atom";
+import FilterButtons from './FilterButtons'; // Import the FilterButtons component
 
 const OnlineFoodDeliveryComponents = ({ resdata, error, isLoading, extraRestsData = [], isLoadingMore }) => {
   const [, setUsersId] = useAtom(userIdAtom);
+  const [selectedFilter, setSelectedFilter] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const OnlinerestaurantCards = useMemo(
     () =>
@@ -15,6 +17,45 @@ const OnlineFoodDeliveryComponents = ({ resdata, error, isLoading, extraRestsDat
       resdata?.[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [],
     [resdata]
   );
+  const extractCost = (costString) => {
+    const match = costString.match(/\d+/);
+    return match ? parseInt(match[0], 10) : 0;
+  };
+  const filteredRestaurants = useMemo(() => {
+    let filtered = OnlinerestaurantCards;
+
+    if (searchQuery) {
+      filtered = filtered.filter((item) =>
+        item?.info?.name?.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    if (selectedFilter) {
+      filtered = filtered.filter((item) => {
+        const { avgRating, costForTwo, veg,sla } = item?.info || {};
+        const cost = extractCost(costForTwo);
+        switch (selectedFilter) {
+          case "Fast Delivery":
+            return sla?.deliveryTime<=24;
+          case "Ratings 4.0+":
+            return avgRating >= 4.0;
+          case "Offers":
+            return item?.info?.aggregatedDiscountInfoV3;
+          case "Pure Veg":
+            return <p>No Veg Restaurants is Presents</p>;
+          case "Less than Rs.300":
+            return cost <= 300;
+          case "Rs.300-Rs.600":
+            return cost > 300 && cost <= 600;
+          default:
+            return true;
+        }
+      });
+    }
+
+    return filtered;
+  }, [OnlinerestaurantCards, selectedFilter, searchQuery]);
+console.log(filteredRestaurants);
   if (isLoading) return <div className="text-center py-4">Loading...</div>;
   if (error)
     return (
@@ -28,8 +69,14 @@ const OnlineFoodDeliveryComponents = ({ resdata, error, isLoading, extraRestsDat
       <h1 className="text-lg sm:text-2xl font-semibold mb-4 ml-4 md:ml-1">
         {OnlineFoodDeliverTitle}
       </h1>
+      <FilterButtons
+        selectedFilter={selectedFilter}
+        setSelectedFilter={setSelectedFilter}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+      />
       <div className="ml-2 md:ml-0 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {OnlinerestaurantCards.map((item, index) => {
+        {filteredRestaurants.map((item, index) => {
           const {
             id,
             name,
@@ -71,4 +118,5 @@ const OnlineFoodDeliveryComponents = ({ resdata, error, isLoading, extraRestsDat
 };
 
 export default OnlineFoodDeliveryComponents;
+
 
