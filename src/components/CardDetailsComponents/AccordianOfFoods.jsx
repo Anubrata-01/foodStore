@@ -1,17 +1,18 @@
 import React, { useState, useCallback, memo } from 'react';
 import FoodItem from './FoodItem';
 
-const AccordionOfFoods = ({ details }) => {
+const AccordionOfFoods = ({ details, }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { itemCards, title } = details;
 
   const toggleAccordion = useCallback(() => setIsOpen(prev => !prev), []);
 
   return (
-    <div className="rounded-xl mt-4 w-full md:w-[88%] md:ml-[5%] ml-0 shadow-md shadow-slate-200">
+    <section className="rounded-xl mt-4 w-full md:w-[88%] md:ml-[5%] ml-0 shadow-md shadow-slate-200">
       <button
         className="flex justify-between items-center w-full p-4 text-left bg-gray-100 hover:bg-gray-200"
         onClick={toggleAccordion}
+        aria-label='toogleAccordian'
       >
         <span className="font-semibold text-black">{title}</span>
         <svg
@@ -28,11 +29,11 @@ const AccordionOfFoods = ({ details }) => {
       {isOpen && (
         <div className="p-4">
           {itemCards?.map((item, index) => (
-            <FoodItem key={item?.card?.info?.id || index} item={item} />
+            <FoodItem key={item?.card?.info?.id || index} item={item}  />
           ))}
         </div>
       )}
-    </div>
+    </section>
   );
 };
 

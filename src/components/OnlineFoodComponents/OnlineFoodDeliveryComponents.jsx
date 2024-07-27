@@ -1,7 +1,6 @@
 
 import React, { useMemo } from "react";
 import RestaurantCardComponent from "../TopRestaurants/RestaurantCardComponent";
-// import ShimmerCard from "../../utilities/ShimmerCard";
 import { NavLink } from "react-router-dom";
 import { OnlineFoodDeliverTitle } from "../../constant/data";
 import { useAtom } from "jotai";
@@ -16,12 +15,6 @@ const OnlineFoodDeliveryComponents = ({ resdata, error, isLoading, extraRestsDat
       resdata?.[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [],
     [resdata]
   );
-
-  // const allRestaurantCards = useMemo(() => 
-  //   [...OnlinerestaurantCards, ...(Array.isArray(extraRestsData) ? extraRestsData : [])], 
-  //   [OnlinerestaurantCards, extraRestsData]
-  // );
-
   if (isLoading) return <div className="text-center py-4">Loading...</div>;
   if (error)
     return (
@@ -72,10 +65,6 @@ const OnlineFoodDeliveryComponents = ({ resdata, error, isLoading, extraRestsDat
             </NavLink>
           );
         })}
-    
-        {
-          isLoadingMore && <p className=" text-center text-gray-600 text-lg w-full">Sorry! There are no more extra cards are present</p>
-        }
       </div>
     </section>
   );

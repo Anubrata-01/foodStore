@@ -1,12 +1,15 @@
 import { useAtom } from "jotai";
 import { cartItemsAtom } from "../../storeAtom/Atom";
-import { useMemo, useState } from "react";
-import { unstable_HistoryRouter, useNavigate } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import {  useNavigate } from "react-router-dom";
 
 const Cart = ({ Navbar }) => {
   const [cartItems, setCartItems] = useAtom(cartItemsAtom);
   const [noContactDelivery, setNoContactDelivery] = useState(false);
   const naviagte = useNavigate();
+  useEffect(()=>{
+    window.scrollTo(0,0)
+  },[])
   const totalAmount = useMemo(() => {
     return cartItems.reduce(
       (total, item) => total + item.price * item.quantity,
@@ -31,7 +34,7 @@ const Cart = ({ Navbar }) => {
   const handleClearCart = () => {
     setCartItems([]);
   };
-
+console.log(cartItems);
   if (cartItems.length === 0) {
     return (
       <div className=" bg-stone-200 flex flex-col items-center justify-center h-[450px] ">
@@ -61,7 +64,7 @@ const Cart = ({ Navbar }) => {
               <h3 className="font-semibold">{item.name}</h3>
               <p className="text-gray-600">₹{item.price / 100}</p>
             </div>
-            <div className="flex items-center ">
+            <div className="flex  ">
               <div className="flex items-center border border-gray-300 rounded-full overflow-hidden w-fit">
                 <button
                   onClick={() =>
@@ -75,7 +78,7 @@ const Cart = ({ Navbar }) => {
                   type="number"
                   value={item.quantity}
                   readOnly
-                  className="w-16 text-center border-none focus:outline-none"
+                  className="w-10 bg-gray-100 text-center border-none focus:outline-none"
                 />
                 <button
                   onClick={() =>

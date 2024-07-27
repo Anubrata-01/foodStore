@@ -48,7 +48,6 @@ const RestaurantContainer = ({ resdata, error, isLoading }) => {
     }
   };
 
-  if (isLoading) return <ShimmerEffect />;
   if (error) return <p>Error: {error.message}</p>;
 
   return (
@@ -71,7 +70,7 @@ const RestaurantContainer = ({ resdata, error, isLoading }) => {
         ref={scrollRef}
         className="w-[100%] md:w-[95%] p-1 md:p-2 flex gap-2 overflow-x-scroll ml-4 md:ml-8 mt-2 scroll-smooth no-scrollbar"
       >
-        {moodData.map((item, index) => {
+        {moodData?.map((item, index) => {
           let entityId = item?.action?.link;
           if (
             typeof entityId === "string" &&

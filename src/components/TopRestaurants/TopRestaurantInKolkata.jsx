@@ -43,7 +43,7 @@ const TopRestaurantInKolkata = ({ resdata,error,isLoading }) => {
       });
     }
   };
-  if(isLoading || !restaurantChainKolkataTitle) return <ShimmerEffect/>
+  // if(isLoading || !restaurantChainKolkataTitle) return <ShimmerEffect/>
   return (
     <section className="mt-5 ml-1 md:ml-8">
       <section className="ml-[7%] md:ml-[3%] flex justify-between">
