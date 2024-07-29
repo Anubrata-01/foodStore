@@ -1,19 +1,29 @@
 import React from 'react';
-
+import './shimmer.css';
 const ShimmerCard = () => {
   return (
-    <div className="bg-white shadow rounded-lg overflow-hidden">
-      <div className="w-72 h-7 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 animate-pulse"></div>
-      <div className="animate-pulse">
-        <div className="h-48 bg-gray-300"></div>
-        <div className="p-4">
-          <div className="h-4 bg-gray-300 rounded w-3/4 mb-2"></div>
-          <div className="h-4 bg-gray-300 rounded w-1/2 mb-2"></div>
-          <div className="h-4 bg-gray-300 rounded w-5/6 mb-2"></div>
-          <div className="h-4 bg-gray-300 rounded w-1/4"></div>
-        </div>
-      </div>
+    <div className="w-full lg:w-[80%] mx-auto mt-10">
+    <div className="w-full h-40 sm:h-80 rounded-xl animate"></div>
+    <div className="w-full flex mt-10 justify-between">
+        <div className="w-[45%] h-10 rounded-xl animate"></div>
+        <div className="w-[45%] h-10 rounded-xl animate"></div>
     </div>
+
+    <div className="w-full mt-20 flex flex-col gap-9">
+        {Array(5)
+            .fill("")
+            .map(( __, i) => (
+                <div key={i} className="w-full h-40 flex justify-between">
+                    <div className="w-[60%] flex flex-col gap-5 h-full">
+                        <div className="w-[100%] h-5 animate"></div>
+                        <div className="w-[50%] h-5 animate"></div>
+                        <div className="w-[30%] h-5 animate"></div>
+                    </div>
+                    <div className="w-[30%] rounded-xl h-full animate"></div>
+                </div>
+            ))}
+    </div>
+</div>
   );
 };
 

@@ -1,5 +1,5 @@
 import React from "react";
-import ShimmerEffect from "../../utilities/ShimmerEffect";
+import ShimmerCard from "../../utilities/ShimmerCard";
 
 const RestaurantCardInterface = ({ RestaurantDetails }) => {
   const {
@@ -13,7 +13,7 @@ const RestaurantCardInterface = ({ RestaurantDetails }) => {
     feeDetails,
   } = RestaurantDetails?.card?.card?.info || {};
 
-  if (!name) return <ShimmerEffect />;
+  if (!name) return <ShimmerCard />;
 
   return (
     <div className="max-w-[90%] mx-auto mt-16 md:mt-16 bg-white rounded-xl shadow-md overflow-hidden md:max-w-xl outline outline-[20px] outline-zinc-200">

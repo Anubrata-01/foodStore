@@ -9,14 +9,18 @@ import Navbar from "./components/Navbar.jsx";
 import Hero from "./components/Hero.jsx";
 import ShimmerEffect from "./utilities/ShimmerEffect.jsx";
 import Cart from "./pages/CartSection/Cart.jsx";
+import SearchSection from "./pages/search/SearchSection.jsx";
+import ShimmerCard from "./utilities/ShimmerCard.jsx";
+// import ShimmerItemDetailsContainer from "./utilities/ShimmerRestaurantCard.jsx";
 const queryClient=new QueryClient();
 const MoodItemContainer=lazy(()=> import ("./pages/MoodItemDetails/MoodItemContainer"));
 const FoodDeliveryDetails=lazy(()=> import ("./pages/FoodDetails/FoodDeliveryInterface.jsx"));
 const CartComponent=lazy(()=> import ("./pages/CartSection/Cart.jsx"));
+
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <App/>,
     children:[
       {
         path:"/",
@@ -24,7 +28,7 @@ const router = createBrowserRouter([
       },
       {
         path:":userId",
-        element:<Suspense>
+        element:<Suspense fallback={<ShimmerEffect/>}>
           <MoodItemContainer/>
         </Suspense>
       },
@@ -36,22 +40,26 @@ const router = createBrowserRouter([
       },
       {
         path:"/mod-restaurant/:userId",
-        element:<Suspense fallback=<ShimmerEffect/>>
+        element:<Suspense>
           <FoodDeliveryDetails/>
         </Suspense>
       },
       {
         path:"/online-restaurant/:userId",
-        element:<Suspense fallback=<ShimmerEffect/>>
+        element:<Suspense>
           <FoodDeliveryDetails/>
         </Suspense>
       },
       {
         path:"/cart",
-        element:<Suspense fallback=<ShimmerEffect/>>
+        element:<Suspense fallback=<ShimmerCard/>>
          
           <CartComponent/>
         </Suspense>
+      },
+      {
+        path:"/search",
+        element:<SearchSection/>
       }
      
     ],

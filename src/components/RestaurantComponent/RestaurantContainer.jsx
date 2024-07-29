@@ -1,11 +1,3 @@
-
-// import React, { useEffect, useMemo, useRef, useState } from "react";
-// import ArrowCircleLeftRoundedIcon from '@mui/icons-material/ArrowCircleLeftRounded';
-// import ArrowCircleRightRoundedIcon from '@mui/icons-material/ArrowCircleRightRounded';
-// import useRestaurantData from "../../hooks/useRestaurantData";
-// import RestaurantCard from "./RestaurantCard";
-// import { NavLink } from "react-router-dom";
-
 import React, { useMemo, useRef } from "react";
 import ArrowCircleLeftRoundedIcon from "@mui/icons-material/ArrowCircleLeftRounded";
 import ArrowCircleRightRoundedIcon from "@mui/icons-material/ArrowCircleRightRounded";

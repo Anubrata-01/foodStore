@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import RestaurantCardComponent from "./RestaurantCardComponent";
 import { useAtom } from "jotai";
 import { userIdAtom } from "../../storeAtom/Atom";
-import ShimmerEffect from "../../utilities/ShimmerEffect";
+
 
 const TopRestaurantInKolkata = ({ resdata,error,isLoading }) => {
   const [usersId, setUsersId] = useAtom(userIdAtom);
@@ -43,7 +43,7 @@ const TopRestaurantInKolkata = ({ resdata,error,isLoading }) => {
       });
     }
   };
-  // if(isLoading || !restaurantChainKolkataTitle) return <ShimmerEffect/>
+
   return (
     <section className="mt-5 ml-1 md:ml-8">
       <section className="ml-[7%] md:ml-[3%] flex justify-between">

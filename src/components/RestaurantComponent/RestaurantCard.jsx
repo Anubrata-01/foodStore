@@ -31,6 +31,7 @@ const RestaurantCard = ({ item }) => {
             src={imageSrc}
             alt={item?.description}
             className="w-[100%] h-auto"
+            loading="lazy"
           />
         )}
       </div>

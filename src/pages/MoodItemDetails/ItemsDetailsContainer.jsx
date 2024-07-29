@@ -1,8 +1,6 @@
 import React, { useEffect, useMemo } from "react";
-import ShimmerEffect from "../../utilities/ShimmerEffect";
 import RestaurantCardComponent from "../../components/TopRestaurants/RestaurantCardComponent";
 import { NavLink, useLocation } from "react-router-dom";
-import ShimmerRestaurantCard from "../../utilities/ShimmerRestaurantCard";
 import ShimmerCard from "../../utilities/ShimmerCard";
 
 const ItemsDetailsContainer = ({ Mooddata }) => {
@@ -23,7 +21,7 @@ const ItemsDetailsContainer = ({ Mooddata }) => {
     );
   }, [Mooddata]);
 
-  if (!title) return <ShimmerRestaurantCard />;
+  if (!title) return <ShimmerCard/>;
   console.log(moodRescards);
 
   return (
