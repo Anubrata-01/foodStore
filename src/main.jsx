@@ -28,7 +28,7 @@ const router = createBrowserRouter([
       },
       {
         path:":userId",
-        element:<Suspense fallback={<ShimmerEffect/>}>
+        element:<Suspense>
           <MoodItemContainer/>
         </Suspense>
       },

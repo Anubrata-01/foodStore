@@ -9,15 +9,9 @@ import {
   MdAddShoppingCart,
   MdOutlineSearch,
 } from "react-icons/md";
+import { FaRegUser } from "react-icons/fa";
 import { FcAbout } from "react-icons/fc";
 import { cartItemsAtom } from "../storeAtom/Atom"; // Assuming you have this atom
-
-const NAV_ITEMS = [
-  { to: "/search", label: "Search", icon: <MdOutlineSearch /> },
-  { to: "/home", label: "Home", icon: <MdHome /> },
-  { to: "/about", label: "About", icon: <FcAbout /> },
-  { to: "/contact", label: "Contact", icon: <MdContactEmergency /> },
-];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,6 +28,14 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const NAV_ITEMS = [
+    { to: "/search", label: "Search", icon: <MdOutlineSearch /> },
+    { to: "/about", label: "About", icon: <FcAbout /> },
+    { to: "/contact", label: "Contact", icon: <MdContactEmergency /> },
+    {to:"/login",label:"Sign in",icon:<FaRegUser/>},
+    { to: "/cart", label: "Cart", icon: <MdAddShoppingCart /> , badge: cartItems.length },
+  ];
+
   return (
     <nav
       className={`
@@ -49,17 +51,15 @@ const Navbar = () => {
           <div className="hidden md:block">
             <div className="ml-5 flex items-baseline space-x-4">
               {NAV_ITEMS.map((item) => (
-                <NavItem key={item.to} {...item} />
+                <div key={item.to} className="relative flex items-center">
+                  <NavItem {...item} />
+                  {item.badge > 0 && (
+                    <span className="absolute top-0 left-10 transform translate-x-1/2 -translate-y-1/2 bg-red-600 text-white rounded-full h-6 w-6 flex items-center justify-center text-xs">
+                      {item.badge}
+                    </span>
+                  )}
+                </div>
               ))}
-              <div className="relative flex items-center">
-                <MdAddShoppingCart className="text-gray-700 hover:text-red-600" />
-                <NavItem to="/cart" label="Cart" />
-                {cartItems.length > 0 && (
-                  <span className="absolute top-0 left-10 transform translate-x-1/2 -translate-y-1/2 bg-red-600 text-white rounded-full h-6 w-6 flex items-center justify-center text-xs">
-                    {cartItems.length}
-                  </span>
-                )}
-              </div>
             </div>
           </div>
           <div className="md:hidden">
@@ -88,18 +88,15 @@ const Navbar = () => {
       >
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white shadow-lg">
           {NAV_ITEMS.map((item) => (
-            <NavItem key={item.to} {...item} onClick={toggleMenu} isMobile />
+            <div key={item.to} className="relative flex items-center">
+              <NavItem {...item} onClick={toggleMenu} isMobile />
+              {item.badge > 0 && (
+                <span className="absolute top-2 left-[52%] transform translate-x-1/2 -translate-y-1/2 bg-red-600 text-white rounded-full h-6 w-6 flex items-center justify-center text-xs">
+                  {item.badge}
+                </span>
+              )}
+            </div>
           ))}
-          <div className="relative flex items-center">
-          {/* <MdAddShoppingCart className="text-gray-700 hover:text-red-600" /> */}
-
-            <NavItem to="/cart" label="Cart" onClick={toggleMenu} isMobile />
-            {cartItems.length > 0 && (
-              <span className="absolute top-2 left-[52%] transform translate-x-1/2 -translate-y-1/2 bg-red-600 text-white rounded-full h-6 w-6 flex items-center justify-center text-xs">
-                {cartItems.length}
-              </span>
-            )}
-          </div>
         </div>
       </div>
     </nav>
@@ -107,3 +104,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

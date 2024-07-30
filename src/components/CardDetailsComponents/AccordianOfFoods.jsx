@@ -1,7 +1,7 @@
 import React, { useState, useCallback, memo } from 'react';
 import FoodItem from './FoodItem';
 
-const AccordionOfFoods = ({ details, }) => {
+const AccordionOfFoods = ({ details,restaurantName }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { itemCards, title } = details;
 
@@ -29,7 +29,7 @@ const AccordionOfFoods = ({ details, }) => {
       {isOpen && (
         <div className="p-4">
           {itemCards?.map((item, index) => (
-            <FoodItem key={item?.card?.info?.id || index} item={item}  />
+            <FoodItem key={item?.card?.info?.id || index} item={item} restaurantName={restaurantName} />
           ))}
         </div>
       )}

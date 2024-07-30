@@ -33,7 +33,7 @@ console.log(RestaurantDetails);
   );
 console.log(filterAccordianCards);
   const renderAccordionItem = useCallback(({ card }, index) => (
-    <AccordianOfFoods key={card?.card?.title || index} details={card?.card} />
+    <AccordianOfFoods key={card?.card?.title || index} details={card?.card} restaurantName={ RestaurantDetails && RestaurantDetails?.card?.card?.info} />
   ), []);
 
   return (

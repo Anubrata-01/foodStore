@@ -12,25 +12,31 @@ const RestaurantCardInterface = ({ RestaurantDetails }) => {
     sla,
     feeDetails,
   } = RestaurantDetails?.card?.card?.info || {};
-
+  const feemsg= feeDetails&& feeDetails?.message.replace(
+    /<[^>]*>/g,
+    ""
+)
   if (!name) return <ShimmerCard />;
 
   return (
-    <div className="max-w-[90%] mx-auto mt-16 md:mt-16 bg-white rounded-xl shadow-md overflow-hidden md:max-w-xl outline outline-[20px] outline-zinc-200">
-      <div className="md:flex">
+    <div className="max-w-[90%] mx-auto mt-16 md:mt-16  bg-gradient-to-t px-4 pb-4 from-slate-200/70 rounded-[30px] shadow-md overflow-hidden md:max-w-xl ">
+      <div className="md:flex border  border-slate-200/70 rounded-[30px] bg-white">
         <div className="p-6">
           <div className="relative top-0 uppercase tracking-wide text-2xl text-black font-bold">
             {name}
           </div>
           <div className="mt-2 text-gray-800">
-            <div className="flex items-center font-bold text-black">
-              <span className="text-gray-600">★ {avgRating}</span>
-              <span className="ml-2 text-sm text-gray-700">{totalRatingsString}</span>
+            <div className="flex items-center font-bold ">
+              <i class="fi fi-ss-circle-star mt-1 text-green-600 text-lg"></i>
+              <span className="text-gray-600"> {avgRating}</span>
+              <span className="ml-2 text-sm text-gray-700">
+                {totalRatingsString}
+              </span>
               <span className="mx-2">·</span>
-              <span className="text-gray-700">₹{costForTwoMessage}</span>
+              <span className="text-gray-700">{costForTwoMessage}</span>
             </div>
             <div className="mt-1">
-              <a href="#" className="text-red-600 hover:underline font-bold">
+              <a href="#" className="text-orange-600 underline font-bold">
                 {cuisines?.map((cuisine, index) => (
                   <span key={index}>
                     {cuisine}
@@ -39,15 +45,32 @@ const RestaurantCardInterface = ({ RestaurantDetails }) => {
                 ))}
               </a>
             </div>
-            <div className="mt-2 flex items-center font-bold text-black">
-              <span>Outlet</span>
-              <span className="ml-2 text-gray-700 font-medium">{areaName}</span>
+            <div className="mt-2 flex items-center font-bold text-black gap-2">
+              <div className="w-[9px] flex flex-col justify-center items-center">
+                <div className="w-[7px] h-[7px] bg-gray-500 rounded-full"></div>
+                <div className="w-[1px] h-[25px] bg-gray-500 "></div>
+                <div className="w-[7px] h-[7px] bg-gray-500 rounded-full"></div>
+              </div>
+              <div className="flex flex-col gap-1 text-sm font-semibold">
+                <p>
+                  Outlet{" "}
+                  <span className="text-gray-500 font-normal">{areaName}</span>
+                </p>
+                <p>{sla?.slaString}</p>
+              </div>
             </div>
-            <div className="mt-1 text-black font-bold">{sla?.slaString}</div>
-            <div className="mt-2 flex items-center text-gray-700">
-              <span>{sla?.lastMileTravelString}</span>
-              {/* <span className="ml-2"> | {feeDetails?.message.split(" | ")[1] || ""}</span> */}
-            </div>
+          </div>
+          <hr className=" w-full mt-4" />
+          <div className="mt-2 flex items-center gap-2 text-gray-700">
+            <img
+              className="w-6"
+              src={
+                "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_40,h_40/" +
+                feeDetails?.icon
+              }
+              alt=""
+            />
+            <span className="ml-2 font-bold text-gray-400">  {feemsg}</span>
           </div>
         </div>
       </div>
@@ -56,4 +79,3 @@ const RestaurantCardInterface = ({ RestaurantDetails }) => {
 };
 
 export default RestaurantCardInterface;
-
