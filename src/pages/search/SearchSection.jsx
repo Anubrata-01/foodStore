@@ -51,8 +51,6 @@ const SearchSection = () => {
     }
   }, [debouncevalueSearchInput, allRestaurantdata]);
 
-  // if (!allSearchdata.length) return <div className='h-[500px]'>Search Anything here</div>;
-
   return (
     <div className='bg-slate-300'>
       <div className='w-[80%] md:w-[40%] ml-[10%] md:ml-[30%] '>
@@ -65,22 +63,29 @@ const SearchSection = () => {
         />
       </div>
       {displayRestaurant ? (
-        <div className=' w-[80%] md:w-[40%] ml-[10%] md:ml-[30%]'>
+        <div className='w-[80%] md:w-[40%] h-[400px] overflow-scroll ml-[10%] md:ml-[30%] mt-[2%] no-scrollbar'>
           {isLoading && <p>Loading...</p>}
           {error && <p>Error loading data</p>}
           <ul>
-            {allSearchdata.map((restaurant, index) => (
-              <li key={index} className='border-b border-neutral-400 py-2'>
-                <SearchedComponentCard info={restaurant?.info} />
-              </li>
-            ))}
+            {allSearchdata.length > 0 ? (
+              allSearchdata.map((restaurant, index) => (
+                <li key={index} className='border-b border-neutral-400 py-2'>
+                  <SearchedComponentCard restaurant={restaurant} />
+                </li>
+              ))
+            ) : (
+              <p className='font-extrabold text-lg text-center'>No Matches Found!</p>
+            )}
           </ul>
         </div>
-      ):(<div className=' h-[400px] text-center p-5 text-lg font-bold'>Nothing to show</div>)}
+      ) : (
+        <div className='h-[400px] text-center p-5 text-lg font-bold'>Nothing to show</div>
+      )}
     </div>
   );
 };
 
 export default SearchSection;
+
 
 
