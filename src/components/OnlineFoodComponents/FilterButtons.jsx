@@ -31,13 +31,13 @@ const FilterButtons = ({ selectedFilter, setSelectedFilter, searchQuery, setSear
   };
 
   return (
-    <div className="flex space-x-4 overflow-x-auto p-4">
+    <div className="flex flex-wrap gap-2 space-x-4 overflow-x-auto p-4">
       <input
         type="text"
         placeholder="Search Restaurant"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className="whitespace-nowrap py-2 px-4 bg-white rounded-full shadow-sm text-gray-600 focus:outline-none"
+        className="whitespace-nowrap py-2 px-4 sm:block hidden bg-white rounded-full shadow-sm text-gray-600 focus:outline-none"
       />
       {filters.map((filter, index) => (
         <button

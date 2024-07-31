@@ -1,17 +1,25 @@
 import { useAtom } from "jotai";
-import { cartItemsAtom } from "../../storeAtom/Atom";
+import { cartItemsAtom, userDetailsAtom } from "../../storeAtom/Atom";
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Swigy_url } from "../../constant/data";
+import { toast } from "react-toastify";
 
 const Cart = ({ Navbar }) => {
   const [cartItems, setCartItems] = useAtom(cartItemsAtom);
   const [noContactDelivery, setNoContactDelivery] = useState(false);
+  const [userDetails, setUserDetails] = useAtom(userDetailsAtom); 
+
   const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+    if(!userDetails){
+      toast.error("Login karle vai!");
+      navigate("/login")
+      console.log("Login karle");
+    }
+  }, [userDetails]);
 
   const totalAmount = useMemo(() => {
     return cartItems.reduce(

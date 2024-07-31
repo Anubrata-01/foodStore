@@ -11,6 +11,8 @@ import ShimmerEffect from "./utilities/ShimmerEffect.jsx";
 import Cart from "./pages/CartSection/Cart.jsx";
 import SearchSection from "./pages/search/SearchSection.jsx";
 import ShimmerCard from "./utilities/ShimmerCard.jsx";
+import SignInForm from "./pages/Authentication/SignIn.jsx";
+import SignUpForm from "./pages/Authentication/SignUp.jsx";
 // import ShimmerItemDetailsContainer from "./utilities/ShimmerRestaurantCard.jsx";
 const queryClient=new QueryClient();
 const MoodItemContainer=lazy(()=> import ("./pages/MoodItemDetails/MoodItemContainer"));
@@ -60,6 +62,14 @@ const router = createBrowserRouter([
       {
         path:"/search",
         element:<SearchSection/>
+      },
+      {
+        path:"/login",
+        element:<SignInForm/>
+      },
+      {
+        path:"/signup",
+        element:<SignUpForm/>
       }
      
     ],
