@@ -11,13 +11,16 @@ import {
 } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa";
 import { FcAbout } from "react-icons/fc";
-import { cartItemsAtom } from "../storeAtom/Atom"; // Assuming you have this atom
+import { cartItemsAtom, userDetailsAtom } from "../storeAtom/Atom";
+import supabase from '../utilities/supabase'; // Adjust the path as needed
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [cartItems] = useAtom(cartItemsAtom); // Get cart items from Jotai atom
-
+  const [cartItems] = useAtom(cartItemsAtom); 
+  const [userDetails, setUserDetails] = useAtom(userDetailsAtom); 
+  const navigate=useNavigate();
   const toggleMenu = () => setIsOpen((prev) => !prev);
 
   useEffect(() => {
@@ -28,12 +31,24 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleSignOut = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      console.error('Error signing out:', error.message);
+    } else {
+      setUserDetails(null);
+      navigate('/'); 
+    }
+  };
+
   const NAV_ITEMS = [
     { to: "/search", label: "Search", icon: <MdOutlineSearch /> },
     { to: "/about", label: "About", icon: <FcAbout /> },
-    { to: "/contact", label: "Contact", icon: <MdContactEmergency /> },
-    {to:"/login",label:"Sign in",icon:<FaRegUser/>},
-    { to: "/cart", label: "Cart", icon: <MdAddShoppingCart /> , badge: cartItems.length },
+    { to: "/cart", label: "Cart", icon: <MdAddShoppingCart />, badge: cartItems.length },
+    ...(!userDetails
+      ? [{ to: "/login", label: "Sign In", icon: <FaRegUser /> }]
+      : [{ to: "#", label: userDetails?.user?.email, icon: <FaRegUser />, onClick: handleSignOut }]
+    )
   ];
 
   return (
@@ -46,7 +61,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex-shrink-0 ml-5 md:ml-0">
-            <span className="text-2xl font-bold text-red-600">FoodStore</span>
+            <span className="text-2xl font-bold text-red-600 cursor-pointer" onClick={()=>navigate("/")}>FoodStore</span>
           </div>
           <div className="hidden md:block">
             <div className="ml-5 flex items-baseline space-x-4">
@@ -104,4 +119,5 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
 
