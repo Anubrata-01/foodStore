@@ -39,6 +39,25 @@ const SignInForm = () => {
     }
   };
 
+  const handleProviderSignIn = async (provider) => {
+    setLoading(true);
+    setErrorMessage(''); // Reset error message
+
+    try {
+      const { error } = await supabase.auth.signIn({
+        provider,
+      });
+
+      if (error) {
+        setErrorMessage(`Error signing in with ${provider}: ${error.message}`);
+      }
+    } catch (error) {
+      setErrorMessage('Unexpected error occurred');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-orange-50">
       <form 
@@ -94,12 +113,32 @@ const SignInForm = () => {
         <div className="mt-6 text-center">
           <p className="text-gray-700">Don't have an account? <NavLink to="/signup" className="text-orange-600 hover:underline">Sign Up Now</NavLink></p>
         </div>
+
+        <div className="mt-4 flex flex-col items-center">
+          <button
+            type="button"
+            onClick={() => handleProviderSignIn('google')}
+            className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-2"
+            disabled={loading}
+          >
+            Sign In with Google
+          </button>
+          <button
+            type="button"
+            onClick={() => handleProviderSignIn('facebook')}
+            className="w-full bg-blue-800 text-white py-3 rounded-lg hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-700 mt-2"
+            disabled={loading}
+          >
+            Sign In with Facebook
+          </button>
+        </div>
       </form>
     </div>
   );
 };
 
 export default SignInForm;
+
 
 
 

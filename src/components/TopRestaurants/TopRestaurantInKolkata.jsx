@@ -23,7 +23,7 @@ const TopRestaurantInKolkata = ({ resdata,error,isLoading }) => {
       resdata?.[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants,
     [resdata]
   );
-
+console.log(restaurantChainKolkataCards);
   const scrollRef = useRef(null);
 
   const handleLeftArrow = () => {

@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
 import { NavLink } from "react-router-dom";
-import { userDetailsAtom } from "../storeAtom/Atom"; // Make sure this import is correct
+import { userDetailsAtom } from "../storeAtom/Atom"; // Ensure this import is correct
 
 const NavItem = ({ to, label, onClick, isMobile, icon }) => {
   const [userDetails] = useAtom(userDetailsAtom);
@@ -21,10 +21,10 @@ const NavItem = ({ to, label, onClick, isMobile, icon }) => {
       <span className="mt-0 text-xl">{icon}</span>
       <span>
         {label}
-        {/* {label === "SignIn" ? (userDetails ? userDetails.user?.email : "Sign In") : label} */}
       </span>
     </NavLink>
   );
 };
 
 export default NavItem;
+

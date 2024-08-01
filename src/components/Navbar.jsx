@@ -20,8 +20,10 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [cartItems] = useAtom(cartItemsAtom); 
   const [userDetails, setUserDetails] = useAtom(userDetailsAtom); 
-  const navigate=useNavigate();
+  const [dropdownOpen, setDropdownOpen] = useState(false); // State for dropdown menu
+  const navigate = useNavigate();
   const toggleMenu = () => setIsOpen((prev) => !prev);
+  const toggleDropdown = () => setDropdownOpen((prev) => !prev);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,6 +40,8 @@ const Navbar = () => {
     } else {
       setUserDetails(null);
       navigate('/'); 
+      setDropdownOpen(false);
+      setIsOpen(false); // Close mobile menu after sign out
     }
   };
 
@@ -47,8 +51,13 @@ const Navbar = () => {
     { to: "/cart", label: "Cart", icon: <MdAddShoppingCart />, badge: cartItems.length },
     ...(!userDetails
       ? [{ to: "/login", label: "Sign In", icon: <FaRegUser /> }]
-      : [{ to: "#", label: userDetails?.user?.email, icon: <FaRegUser />, onClick: handleSignOut }]
+      : [{ to: "#", label: userDetails?.user?.email, icon: <FaRegUser />, onClick: toggleDropdown }]
     )
+  ];
+
+  const MOBILE_NAV_ITEMS = [
+    ...NAV_ITEMS,
+    
   ];
 
   return (
@@ -102,9 +111,9 @@ const Navbar = () => {
       `}
       >
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white shadow-lg">
-          {NAV_ITEMS.map((item) => (
+          {MOBILE_NAV_ITEMS.map((item) => (
             <div key={item.to} className="relative flex items-center">
-              <NavItem {...item} onClick={toggleMenu} isMobile />
+              <NavItem {...item} onClick={item.onClick ? item.onClick : toggleMenu} isMobile />
               {item.badge > 0 && (
                 <span className="absolute top-2 left-[52%] transform translate-x-1/2 -translate-y-1/2 bg-red-600 text-white rounded-full h-6 w-6 flex items-center justify-center text-xs">
                   {item.badge}
@@ -114,10 +123,20 @@ const Navbar = () => {
           ))}
         </div>
       </div>
+
+      {/* Dropdown menu  */}
+      {dropdownOpen && (
+        <div className="absolute top-20 right-16 md:right-5 bg-white shadow-lg rounded-lg py-2 w-48">
+          <button onClick={() => navigate('/profile')} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">Profile</button>
+          <button onClick={() => navigate('/settings')} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">Settings</button>
+          <button onClick={handleSignOut} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">Logout</button>
+        </div>
+      )}
     </nav>
   );
 };
 
 export default Navbar;
+
 
 

@@ -66,7 +66,7 @@ console.log(filteredRestaurants);
 
   return (
     <section className="mt-5 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      <h1 className="text-lg sm:text-2xl font-semibold mb-4 ml-4 md:ml-1">
+      <h1 className="text-lg sm:text-2xl font-semibold mb-4 ml-4 md:-ml-2">
         {OnlineFoodDeliverTitle}
       </h1>
       <FilterButtons
