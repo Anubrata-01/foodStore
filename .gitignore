@@ -23,3 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 .env
+jest.config.cjs
+jest.setup.js
+.babelrc
+Navbar.test.js
+

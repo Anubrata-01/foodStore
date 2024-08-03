@@ -85,7 +85,7 @@ const RestaurantCardComponent = ({
               </linearGradient>
             </defs>
           </svg>
-          <span className="ml-1">{avgRating}</span>
+          <span className="ml-1">{ avgRating && avgRating}</span>
           <span className="ml-2">• {sla} </span>
         </div>
         <p className="text-gray-600">
