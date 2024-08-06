@@ -22,7 +22,7 @@ const SearchedComponentCard = ({ restaurant }) => {
 
   return (
     <section>
-      <div className='flex justify-between'>
+      <div className='flex justify-between mt-2 border-b border-gray-400'>
         <div className='text-stone-600'>
           <p>{name || description}</p>
           <p>{areaName}</p>
