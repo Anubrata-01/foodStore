@@ -26,7 +26,7 @@ const ItemsDetailsContainer = ({ Mooddata }) => {
 
   return (
     <section>
-      <section className="ml-[16%] mt-[2%] md:ml-[3%]">
+      <section className="ml-[16%] mt-[2%] md:ml-[7%]">
         <div>
           <p className="text-2xl font-bold">{title}</p>
           <p className="text-lg text-gray-700">{description}</p>

@@ -76,7 +76,7 @@ console.log(userDetails);
   ];
 
   return (
-    <nav className={`sticky top-0 z-50 transition-all duration-200 ${isScrolled ? "bg-white shadow-md py-2" : "bg-transparent py-4"}`}>
+    <nav className={`sticky top-0 z-50 transition-all duration-200 ${isScrolled ? "bg-white shadow-md py-2" : "bg-transparent py-1"}`}>
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-3">
         <div className="flex items-center justify-between h-16">
           <div className="flex-shrink-0 ml-5 md:ml-0">

@@ -1,6 +1,5 @@
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import { Star_svg, Swigy_url } from "../../constant/data";
-// import GetCompressedImg from "../../storeAtom/GetCompressImage";
 import React from "react";
 const RestaurantCardComponent = ({
   name,
@@ -35,9 +34,13 @@ const RestaurantCardComponent = ({
     name.length > maxNameLength ? `${name.slice(0, maxNameLength)}...` : name;
 
   return (
-    <section className="bg-white rounded-lg shadow-md overflow-hidden m-2 w-64 h-[30]">
+    <section className="bg-white rounded-lg shadow-md overflow-hidden m-2  h-[30]">
       <section className="relative">
-        <img src={Swigy_url + imageUrl} alt="img" className=" w-full h-40 object-cover" />
+        <div className=" w-72">
+        <img src={Swigy_url + imageUrl} alt="img" className=" w-full h-40 object-cover" loading="lazy"/>
+
+        </div>
+        {/* <img src={Swigy_url + imageUrl} alt="img" className=" w-48 h-40 object-cover" /> */}
         <div className="absolute bottom-0 left-0 bg-black bg-opacity-50 text-white p-1 text-sm">
           {aggregatedDiscountInfoV3 ? (
             <span className=" text-white font-bold">
@@ -97,24 +100,4 @@ const RestaurantCardComponent = ({
     </section>
   );
 };
-
-RestaurantCardComponent.propTypes = {
-  name: PropTypes.string.isRequired,
-  locality: PropTypes.string,
-  cuisines: PropTypes.arrayOf(PropTypes.string).isRequired,
-  costForTwo: PropTypes.string.isRequired,
-  imageUrl: PropTypes.string.isRequired,
-  isOpen: PropTypes.bool.isRequired,
-  sla: PropTypes.string.isRequired,
-  areaName: PropTypes.string.isRequired,
-  avgRating: PropTypes.number.isRequired,
-  aggregatedDiscountInfoV3: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.shape({
-      header: PropTypes.string,
-      subHeader: PropTypes.string,
-    }),
-  ]),
-};
-
 export default React.memo(RestaurantCardComponent);

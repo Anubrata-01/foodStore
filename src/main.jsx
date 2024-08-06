@@ -8,70 +8,37 @@ import About from "./pages/About.jsx";
 import Navbar from "./components/Navbar.jsx";
 import Hero from "./components/Hero.jsx";
 import ShimmerEffect from "./utilities/ShimmerEffect.jsx";
-import Cart from "./pages/CartSection/Cart.jsx";
-import SearchSection from "./pages/search/SearchSection.jsx";
-import ShimmerCard from "./utilities/ShimmerCard.jsx";
+import SearchSection from "./pages/Search/SearchSection.jsx";
 import SignInForm from "./pages/Authentication/SignIn.jsx";
 import SignUpForm from "./pages/Authentication/SignUp.jsx";
-// import ShimmerItemDetailsContainer from "./utilities/ShimmerRestaurantCard.jsx";
-const queryClient=new QueryClient();
-const MoodItemContainer=lazy(()=> import ("./pages/MoodItemDetails/MoodItemContainer"));
-const FoodDeliveryDetails=lazy(()=> import ("./pages/FoodDetails/FoodDeliveryInterface.jsx"));
-const CartComponent=lazy(()=> import ("./pages/CartSection/Cart.jsx"));
+
+const queryClient = new QueryClient();
+
+const MoodItemContainer = lazy(() => import("./pages/MoodItemDetails/MoodItemContainer"));
+const FoodDeliveryDetails = lazy(() => import("./pages/FoodDetails/FoodDeliveryInterface.jsx"));
+const CartComponent = lazy(() => import("./pages/CartSection/Cart.jsx"));
+
+const LazyComponent = ({ component: Component, fallback = <ShimmerEffect /> }) => (
+  <Suspense fallback={fallback}>
+    <Component />
+  </Suspense>
+);
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App/>,
-    children:[
-      {
-        path:"/",
-        element:<Hero/>
-      },
-      {
-        path:":userId",
-        element:<Suspense>
-          <MoodItemContainer/>
-        </Suspense>
-      },
-      {
-        path:"/top-res/:userId",
-        element:<Suspense>
-          <FoodDeliveryDetails/>
-        </Suspense>
-      },
-      {
-        path:"/mod-restaurant/:userId",
-        element:<Suspense>
-          <FoodDeliveryDetails/>
-        </Suspense>
-      },
-      {
-        path:"/online-restaurant/:userId",
-        element:<Suspense>
-          <FoodDeliveryDetails/>
-        </Suspense>
-      },
-      {
-        path:"/cart",
-        element:<Suspense fallback=<ShimmerCard/>>
-         
-          <CartComponent/>
-        </Suspense>
-      },
-      {
-        path:"/search",
-        element:<SearchSection/>
-      },
-      {
-        path:"/login",
-        element:<SignInForm/>
-      },
-      {
-        path:"/signup",
-        element:<SignUpForm/>
-      }
-     
+    element: <App />,
+    children: [
+      { path: "/", element: <Hero /> },
+      { path: ":userId", element: <Suspense><MoodItemContainer/></Suspense> },
+      { path: "/top-res/:userId", element: <Suspense><FoodDeliveryDetails/></Suspense>  },
+      { path: "/mod-restaurant/:userId", element: <FoodDeliveryDetails/> },
+      { path: "/online-restaurant/:userId", element: <FoodDeliveryDetails/> },
+      { path: "/searched-food/:userId", element: <Suspense fallback={<ShimmerEffect/>}><FoodDeliveryDetails/></Suspense>  },
+      { path: "/cart", element: <LazyComponent component={CartComponent} /> },
+      { path: "/search", element: <SearchSection /> },
+      { path: "/login", element: <SignInForm /> },
+      { path: "/signup", element: <SignUpForm /> },
     ],
   },
   {
@@ -83,8 +50,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-    <RouterProvider router={router} />
+      <RouterProvider router={router} />
     </QueryClientProvider>
-    
   </React.StrictMode>
 );

@@ -3,47 +3,23 @@ import ArrowCircleLeftRoundedIcon from "@mui/icons-material/ArrowCircleLeftRound
 import ArrowCircleRightRoundedIcon from "@mui/icons-material/ArrowCircleRightRounded";
 import { NavLink } from "react-router-dom";
 import RestaurantCardComponent from "./RestaurantCardComponent";
-import { useAtom } from "jotai";
-import { userIdAtom } from "../../storeAtom/Atom";
-
-
+import useHandleArrow from "../../hooks/useHandleArrow";
 const TopRestaurantInKolkata = ({ resdata,error,isLoading }) => {
-  const [usersId, setUsersId] = useAtom(userIdAtom);
-
+ 
   const restaurantChainKolkataTitle = useMemo(
     () =>
       resdata?.[1]?.card?.card?.header?.title ||
       "Top restaurant chains in Kolkata",
     [resdata]
   );
-
   const restaurantChainKolkataCards = useMemo(
     () =>
       resdata?.[1]?.card?.card?.imageGridCards?.info ||
       resdata?.[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants,
     [resdata]
   );
-console.log(restaurantChainKolkataCards);
   const scrollRef = useRef(null);
-
-  const handleLeftArrow = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({
-        left: -window.innerWidth / 2,
-        behavior: "smooth",
-      });
-    }
-  };
-
-  const handleRightArrow = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({
-        left: window.innerWidth / 2,
-        behavior: "smooth",
-      });
-    }
-  };
-
+  if(error) return <p>There is problem:{error.message}</p>
   return (
     <section className="mt-5 ml-1 md:ml-8">
       <section className="ml-[7%] md:ml-[3%] flex justify-between">
@@ -51,10 +27,10 @@ console.log(restaurantChainKolkataCards);
           {restaurantChainKolkataTitle}
         </h1>
         <aside className="mr-[.5%] md:mr-[4%] flex md:flex gap-1.5 md:gap-3">
-          <button aria-label="leftButton" onClick={handleLeftArrow}>
+          <button aria-label="leftButton" onClick={()=>useHandleArrow(scrollRef,-600)}>
             <ArrowCircleLeftRoundedIcon style={{ fontSize: 32 }} />
           </button>
-          <button aria-label="rightButton" onClick={handleRightArrow}>
+          <button aria-label="rightButton" onClick={()=>useHandleArrow(scrollRef,700)}>
             <ArrowCircleRightRoundedIcon style={{ fontSize: 32 }} />
           </button>
         </aside>
@@ -88,9 +64,9 @@ console.log(restaurantChainKolkataCards);
 
           return (
             <NavLink
-              to={`/top-res/${item?.info?.id}`} // Uncomment and adjust the route as needed
+              to={`/top-res/${item?.info?.id}`} 
               key={item.id || index}
-              onClick={() => setUsersId(entityId)}
+              // onClick={() => setUsersId(entityId)}
             >
               <RestaurantCardComponent
                 name={name}

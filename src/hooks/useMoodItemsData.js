@@ -29,3 +29,7 @@ const useMoodItemsData = (userId) => {
 };
 
 export default useMoodItemsData;
+
+
+// const id="https://www.swiggy.com/dapi/restaurants/search/v3?lat=22.469788246717883&lng=88.3891574665904&str=Burger%20King&trackingId=90c19d56-cb6f-aadf-4a31-795ce89faefc&submitAction=ENTER&queryUniqueId=3f377dab-e34a-cda0-d560-4491b9af3a0f"
+// "https://www.swiggy.com/dapi/restaurants/search/v3?lat=22.469788246717883&lng=88.3891574665904&str=Momos&trackingId=fc07462b-6f2b-d6fb-c0ec-1082d5309389&submitAction=ENTER&queryUniqueId=7ac2310e-7176-a684-6f6d-70a352cd485b"

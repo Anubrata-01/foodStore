@@ -1,9 +1,6 @@
-import { useAtom } from "jotai";
 import { NavLink } from "react-router-dom";
-import { userDetailsAtom } from "../storeAtom/Atom"; // Ensure this import is correct
-
 const NavItem = ({ to, label, onClick, isMobile, icon }) => {
-  const [userDetails] = useAtom(userDetailsAtom);
+
 
   return (
     <NavLink
