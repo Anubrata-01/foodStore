@@ -1,10 +1,11 @@
+/* eslint-disable no-undef */
 import { useAtom } from "jotai";
 import { cartItemsAtom, userDetailsAtom } from "../../storeAtom/Atom";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Swigy_url } from "../../constant/data";
 import { toast } from "react-toastify";
-
+import {loadStripe} from '@stripe/stripe-js'; 
 const Cart = ({ Navbar }) => {
   const [cartItems, setCartItems] = useAtom(cartItemsAtom);
   const [noContactDelivery, setNoContactDelivery] = useState(false);
@@ -20,7 +21,8 @@ const Cart = ({ Navbar }) => {
       console.log("Login karle");
     }
   }, [userDetails]);
-
+  console.log(cartItems);
+  
   const totalAmount = useMemo(() => {
     return cartItems.reduce(
       (total, item) => total + item.price * item.quantity,
@@ -56,6 +58,32 @@ const Cart = ({ Navbar }) => {
     ),
     []
   );
+
+  // Payment Integration
+  const makePayment = useCallback(async () => {
+    const stripe = await loadStripe("pk_test_51Pm6P5RvOgF1bnDE9oBvxFrkl3UNdktLzzXV1y03ru59sIGyCDvUN01EVsUQNwklBW4qLnT6lSaLtJvaZ5OAH1TD00YoC5fLA6");
+    // Add payment logic here
+    const body={
+      products:cartItems
+    };
+    const header={
+      "Content-Type":"application/json"
+    };
+    const response=await fetch("http://localhost:7000/api/create-checkout-session",{
+      method:"POST",
+      headers:header,
+      body:JSON.stringify(body)
+    })
+    const session=await response.json();
+    const result=stripe.redirectToCheckout({
+      sessionId:session.id
+    })
+    if(result.error){
+      console.log(result.error)
+    }
+  }, []);
+
+
   console.log(cartItems);
   if (cartItems.length === 0) {
     return (
@@ -168,10 +196,7 @@ const Cart = ({ Navbar }) => {
         </div>
         <button
           className="w-full bg-green-500 text-white py-4 rounded-lg font-bold hover:bg-green-600 transition-colors duration-300"
-          onClick={() => {
-            // Implement payment logic here
-            alert("Proceeding to payment...");
-          }}
+          onClick={makePayment}
         >
           Proceed to Payment
         </button>

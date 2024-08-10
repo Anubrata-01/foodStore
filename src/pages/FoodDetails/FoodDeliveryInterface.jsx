@@ -9,12 +9,11 @@ import RestaurantCardInterface from "../../components/CardDetailsComponents/Rest
 import AccordianOfFoods from "../../components/CardDetailsComponents/AccordianOfFoods";
 
 const FoodDeliveryInterface = () => {
-  const { userId } = useParams();
+  const { userId} = useParams();
   const [, setUserId] = useAtom(userIdAtom);
   const [topRestaurantDetailsData, setTopRestaurantDetailsData] = useAtom(topRestaurantDetailsDataAtom);
 
   useTopRestaurantDetails(userId);
-
   useEffect(() => {
     window.scrollTo(0, 0);
     setUserId(userId);

@@ -36,7 +36,7 @@ const RestaurantCardComponent = ({
   return (
     <section className="bg-white rounded-lg shadow-md overflow-hidden m-2  h-[30]">
       <section className="relative">
-        <div className=" w-72">
+        <div className=" w-64">
         <img src={Swigy_url + imageUrl} alt="img" className=" w-full h-40 object-cover" loading="lazy"/>
 
         </div>
@@ -51,9 +51,9 @@ const RestaurantCardComponent = ({
           )}
         </div>
       </section>
-      <section className="p-4">
+      <section className="p-3">
         <h2 className="text-lg font-bold">{displayedName}</h2>
-        <div className="flex items-center  text-sm my-2">
+        <div className="flex items-center  text-sm my-1 font-bold">
           <svg
             width="20"
             height="20"

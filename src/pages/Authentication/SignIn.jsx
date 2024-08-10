@@ -41,12 +41,12 @@ const SignInForm = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen md:mt-0 -mt-20 flex items-center justify-center bg-gray-100">
       <form 
         onSubmit={handleSubmit(onSubmit)} 
         className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md"
       >
-        <h2 className="text-2xl font-bold mb-6 text-center">Sign In</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center text-orange-600">Sign In</h2>
         
         <div className="mb-4">
           <label htmlFor="email" className="block text-gray-700">Email</label>
@@ -78,14 +78,14 @@ const SignInForm = () => {
 
         <button 
           type="submit" 
-          className={`w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+          className={`w-full bg-orange-600 text-white py-3 rounded-lg hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
           disabled={loading}
         >
           {loading ? 'Signing In...' : 'Sign In'}
         </button>
 
         <div className="mt-6 text-center">
-          <p className="text-gray-700">Don't have an account? <Link to="/signup" className="text-blue-600 hover:underline">Sign Up</Link></p>
+          <p className="text-gray-700">Don't have an account? <Link to="/signup" className="text-orange-600 hover:underline">Sign Up</Link></p>
         </div>
       </form>
     </div>

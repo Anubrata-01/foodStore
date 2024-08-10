@@ -42,6 +42,7 @@ const SearchSection = () => {
       setAllRestaurantdata([...restaurantChainKolkataCards, ...moodTodayCards]);
     }
   }, [resdata, restaurantChainKolkataCards, moodTodayCards, location.pathname, setTopRestaurantDetailsData]);
+console.log(allRestaurantdata);
 
   useEffect(() => {
     if (debouncevalueSearchInput) {
@@ -62,7 +63,7 @@ const SearchSection = () => {
   };
 
   return (
-    <div className='bg-slate-300'>
+    <div className='bg-slate-300 '>
       <div className='w-[80%] md:w-[40%] ml-[10%] md:ml-[30%]'>
         <input
           type="text"
@@ -73,7 +74,7 @@ const SearchSection = () => {
         />
       </div>
       {displayRestaurant ? (
-        <div className='w-[80%] md:w-[40%] h-[400px] overflow-scroll ml-[10%] md:ml-[30%] mt-[2%] no-scrollbar'>
+        <div className='w-[80%] md:w-[40%] h-[450px] overflow-scroll ml-[10%] md:ml-[30%] mt-[2%] no-scrollbar'>
           {isLoading && <p>Loading...</p>}
           {error && <p>Error loading data</p>}
           <ul>
@@ -103,7 +104,7 @@ const SearchSection = () => {
           </ul>
         </div>
       ) : (
-        <div className='h-[400px] text-center p-5 text-lg font-bold'>Nothing to show</div>
+        <div className='h-[450px] text-center p-5 text-lg font-bold'>Nothing to show</div>
       )}
     </div>
   );

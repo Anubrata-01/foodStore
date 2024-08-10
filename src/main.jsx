@@ -11,6 +11,8 @@ import ShimmerEffect from "./utilities/ShimmerEffect.jsx";
 import SearchSection from "./pages/Search/SearchSection.jsx";
 import SignInForm from "./pages/Authentication/SignIn.jsx";
 import SignUpForm from "./pages/Authentication/SignUp.jsx";
+import Success from "./pages/Success.jsx";
+import Cancel from "./pages/Cancel.jsx";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +41,10 @@ const router = createBrowserRouter([
       { path: "/search", element: <SearchSection /> },
       { path: "/login", element: <SignInForm /> },
       { path: "/signup", element: <SignUpForm /> },
+      { path: "/success", element: <Success /> },
+      { path: "/cancel", element: <Cancel /> },
+
+
     ],
   },
   {
