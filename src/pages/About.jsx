@@ -8,7 +8,7 @@ const About = ({ Navbar }) => {
       <div>
         <h2 className="text-2xl font-bold text-gray-800">About Us</h2>
         <p className="mt-2 text-gray-600">
-          Insert your About content here.
+          Insert your About content here.hello
         </p>
       </div>
     </div>

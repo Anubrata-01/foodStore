@@ -61,27 +61,41 @@ const Cart = ({ Navbar }) => {
 
   // Payment Integration
   const makePayment = useCallback(async () => {
-    const stripe = await loadStripe("pk_test_51Pm6P5RvOgF1bnDE9oBvxFrkl3UNdktLzzXV1y03ru59sIGyCDvUN01EVsUQNwklBW4qLnT6lSaLtJvaZ5OAH1TD00YoC5fLA6");
-    // Add payment logic here
-    const body={
-      products:cartItems
-    };
-    const header={
-      "Content-Type":"application/json"
-    };
-    const response=await fetch("http://localhost:7000/api/create-checkout-session",{
-      method:"POST",
-      headers:header,
-      body:JSON.stringify(body)
-    })
-    const session=await response.json();
-    const result=stripe.redirectToCheckout({
-      sessionId:session.id
-    })
-    if(result.error){
-      console.log(result.error)
+    try {
+      const stripe = await loadStripe("pk_test_51Pm6P5RvOgF1bnDE9oBvxFrkl3UNdktLzzXV1y03ru59sIGyCDvUN01EVsUQNwklBW4qLnT6lSaLtJvaZ5OAH1TD00YoC5fLA6");
+  
+      const body = {
+        products: cartItems
+      };
+  
+      const response = await fetch("http://localhost:7000/api/create-checkout-session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+      });
+  
+      if (response.ok) {
+        const session = await response.json();
+        const result = await stripe.redirectToCheckout({
+          sessionId: session.id
+        });
+  
+        if (result.error) {
+          console.error("Stripe Checkout error:", result.error.message);
+          toast.error("Payment failed. Please try again.");
+        }
+      } else {
+        console.error("Server error when creating session:", response.statusText);
+        toast.error("Failed to create checkout session. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error during payment process:", error);
+      toast.error("An error occurred during payment. Please try again.");
     }
-  }, []);
+  }, [cartItems]);
+  
 
 
   console.log(cartItems);
